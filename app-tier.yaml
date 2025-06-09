@@ -33,9 +33,6 @@ spec:
         image: lrakai/microservices:server-v1
         ports:
           - containerPort: 8080
-        resources:
-          requests:
-            cpu: 20m
         env:
           - name: REDIS_URL
             # Environment variable service discovery
@@ -44,3 +41,8 @@ spec:
             #   Port: <all_caps_service_name>_SERVICE_PORT
             #   Named Port: <all_caps_service_name>_SERVICE_PORT_<all_caps_port_name>
             value: redis://data-tier:6379
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: app-tier-secret
+                key: password
